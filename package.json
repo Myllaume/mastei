@@ -1,0 +1,25 @@
+{
+  "name": "mastei",
+  "version": "0.1.0",
+  "description": "Tool for telling interactive, nonlinear stories",
+  "main": "./dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts:watch": "./node_modules/.bin/tsc --watch",
+    "format": "./node_modules/.bin/prettier --write --list-different ."
+  },
+  "author": "Guillaume Brioudes",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "commander": "^10.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4"
+  }
+}
