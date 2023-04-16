@@ -28,7 +28,16 @@ const config = {
         test: /\.tsx?$/, // .ts, .tsx
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+          presets: [
+            '@babel/preset-env',
+            '@babel/preset-typescript',
+            [
+              '@babel/preset-react',
+              {
+                runtime: 'automatic',
+              },
+            ],
+          ],
         },
       },
       {
@@ -43,6 +52,12 @@ const config = {
   mode: 'development',
   stats: 'errors-only',
   devServer: {
+    static: {
+      directory: path.join(__dirname, '../dist/views'),
+    },
+    proxy: {
+      '/api/**': 'http://localhost:8000',
+    },
     port: 3000,
     open: true,
   },

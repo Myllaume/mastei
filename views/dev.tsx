@@ -1,5 +1,10 @@
-import React from 'react';
 import { render } from 'react-dom';
+import { AppName } from './components/appname';
 
 const root = document.getElementById('root');
-render(<p>Welcome to Masteï</p>, root);
+render(
+  <>
+    Welcome on <AppName />
+  </>,
+  root
+);

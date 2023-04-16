@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server/index.js",
     "build:server": "./node_modules/.bin/tsc -p ./server/tsconfig.json --watch",
-    "build:views": "./node_modules/.bin/webpack-cli -c ./views/webpack.config.js --watch",
+    "build:views": "./node_modules/.bin/webpack-dev-server -c ./views/webpack.config.js",
     "format": "./node_modules/.bin/prettier --write --list-different ."
   },
   "author": "Guillaume Brioudes",
@@ -38,6 +38,7 @@
     "style-loader": "^3.3.2",
     "typescript": "^5.0.4",
     "webpack": "^5.79.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.3"
   }
 }
