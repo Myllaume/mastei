@@ -26,23 +26,48 @@ const config = {
     rules: [
       {
         test: /\.tsx?$/, // .ts, .tsx
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            '@babel/preset-env',
-            '@babel/preset-typescript',
-            [
-              '@babel/preset-react',
-              {
-                runtime: 'automatic',
-              },
-            ],
-          ],
-        },
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-typescript',
+                [
+                  '@babel/preset-react',
+                  {
+                    runtime: 'automatic',
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.css$/i,
+        test: /\.module\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+        exclude: /\.module\.css$/,
       },
     ],
   },
@@ -52,14 +77,11 @@ const config = {
   mode: 'development',
   stats: 'errors-only',
   devServer: {
-    static: {
-      directory: path.join(__dirname, '../dist/views'),
-    },
     proxy: {
       '/api/**': 'http://localhost:8000',
     },
     port: 3000,
-    open: true,
+    open: ['./dev.html'],
   },
 };
 

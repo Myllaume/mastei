@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from './appname.module.css';
 
 function AppName() {
   const [name, setName] = useState();
@@ -13,9 +14,9 @@ function AppName() {
   }, []);
 
   return (
-    <>
+    <span className={styles.toto}>
       {name} version {version}
-    </>
+    </span>
   );
 }
 
