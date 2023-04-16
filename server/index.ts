@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { appInformations } from '../types';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,15 +16,15 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/api', (req: Request, res: Response) => {
+  const result = {
+    app: {
+      name: 'Masteï',
+      version: '0.1.0',
+    } as appInformations,
+  };
+
   res.setHeader('Content-Type', 'application/json');
-  res.end(
-    JSON.stringify({
-      app: {
-        name: 'Masteï',
-        version: '0.1.0',
-      },
-    })
-  );
+  res.end(JSON.stringify(result));
 });
 
 app.listen(port, () => {

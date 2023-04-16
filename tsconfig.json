@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "../dist/server",
+    "outDir": "./dist/",
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2022"],
     "module": "ES2022",
     "moduleResolution": "node",
     "target": "ES2022"
-  }
+  },
+  "exclude": ["./views"]
 }
