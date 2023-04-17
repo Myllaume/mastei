@@ -12,3 +12,9 @@ export type fragment = {
   cssImport?: string;
   jsImport?: string;
 };
+
+export type library = {
+  id: string;
+  title: string;
+  directory: string;
+};
