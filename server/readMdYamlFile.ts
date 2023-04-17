@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs';
 import { parse } from 'yaml';
 import { fragment } from '../types';
-import { FragmentHasNoIdError, FragmentHasNoTitleError, ReadFragmentFileError } from '../errors';
+import { FragmentHasNoIdError, FragmentHasNoTitleError, ReadFragmentFileError } from '../errors.js';
 
 export function readFragmentFile(filePath: string): Promise<fragment> {
   return new Promise((resolve, reject) => {
