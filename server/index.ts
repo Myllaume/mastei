@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { appInformations } from '../types';
-import { AppConfig, makeConfigDir, AppConfigParams } from './appConfig.js';
+import { AppConfig, makeConfigDir, AppConfigParams } from './appConfig';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

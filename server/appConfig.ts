@@ -2,7 +2,7 @@ import { writeFile, readFile, existsSync, mkdir } from 'node:fs';
 import path from 'node:path';
 import { library } from '../types';
 import envPaths from 'env-paths';
-import { WriteConfigFileError, ReadConfigFileError, MakeConfigDirError } from '../errors.js';
+import { WriteConfigFileError, ReadConfigFileError, MakeConfigDirError } from '../errors';
 
 const { config: configDirPath } = envPaths('mastei', { suffix: '' });
 
