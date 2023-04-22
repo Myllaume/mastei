@@ -7,8 +7,8 @@ const root = document.getElementById('root');
 render(
   <>
     Welcome on <AppName />
-    <Card nbFragments={3} timestamp={1}/>
-    <Card nbFragments={3} timestamp={1}/>
+    <Card nbFragments={3} timestamp={1} />
+    <Card nbFragments={3} timestamp={1} />
   </>,
   root
 );

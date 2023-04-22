@@ -16,7 +16,7 @@ function AppName() {
 
   useEffect(() => {
     fetch('/api/libraries').then(async (response) => {
-      const libraries = await response.json() as library[];
+      const libraries = (await response.json()) as library[];
       console.log(libraries);
     });
   }, []);
