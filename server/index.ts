@@ -24,10 +24,6 @@ async function bootApp(): Promise<AppConfigParams> {
 }
 
 bootApp().then((appConfig) => {
-  app.get('/', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../views/dev.html'));
-  });
-
   app.get('/api/libraries', (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(appConfig.libraries));
