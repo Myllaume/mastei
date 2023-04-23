@@ -2,7 +2,13 @@ import { writeFile, readFile, existsSync, mkdir } from 'node:fs';
 import path from 'node:path';
 import { library } from '../types';
 import envPaths from 'env-paths';
-import { WriteConfigFileError, ReadConfigFileError, MakeConfigDirError } from '../errors';
+import {
+  WriteConfigFileError,
+  ReadConfigFileError,
+  MakeConfigDirError,
+  ConfigFileNotExistError,
+  ConfigFileContainsInvalidValueError,
+} from '../errors';
 
 const { config: configDirPath } = envPaths('mastei', { suffix: '' });
 
@@ -12,6 +18,10 @@ export interface AppConfigParams {
 
 export class AppConfig {
   libraries: library[];
+
+  public static base = Object.freeze({
+    libraries: [],
+  } as AppConfigParams);
 
   constructor({ libraries }: AppConfigParams) {
     this.libraries = libraries;
@@ -35,29 +45,39 @@ export class AppConfig {
     });
   }
 
-  public static load(): Promise<AppConfigParams> {
+  public static load(): Promise<AppConfig> {
     return new Promise((resolve, reject) => {
       readFile(AppConfig.savePath, 'utf-8', (err, data) => {
         if (err) {
           reject(new ReadConfigFileError(AppConfig.savePath, err));
         }
-        resolve(JSON.parse(data));
+        const params = JSON.parse(data) as AppConfigParams;
+        resolve(new AppConfig(params));
       });
     });
   }
 
-  public static async isLoadable(): Promise<boolean> {
+  public static async isLoadable(): Promise<
+    ConfigFileNotExistError | ReadConfigFileError | ConfigFileContainsInvalidValueError | true
+  > {
     if (existsSync(AppConfig.savePath) === false) {
-      return false;
+      return Promise.resolve(new ConfigFileNotExistError());
     }
 
-    const config = await AppConfig.load();
+    return new Promise((resolve) => {
+      readFile(AppConfig.savePath, 'utf-8', (err, data) => {
+        if (err) {
+          resolve(new ReadConfigFileError(AppConfig.savePath, err));
+        }
+        const params = JSON.parse(data) as AppConfigParams;
 
-    if (Array.isArray(config.libraries) === false) {
-      return false;
-    }
+        if (Array.isArray(params.libraries) === false) {
+          resolve(new ConfigFileContainsInvalidValueError('libraries'));
+        }
 
-    return true;
+        resolve(true);
+      });
+    });
   }
 }
 
