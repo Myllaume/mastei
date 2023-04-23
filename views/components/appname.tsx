@@ -1,26 +1,25 @@
 import styles from './appname.module.css';
-import { appInformations } from '../../types';
+import { AppInformations } from '../../types';
 import { useQuery } from '@tanstack/react-query';
 
 function AppName() {
-  const { isLoading, data } = useQuery<appInformations>({
+  const { data } = useQuery<AppInformations>({
     queryKey: ['appConfig'],
     queryFn: () =>
-      fetch('/appInformations/version', {
+      fetch('/appInformations', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then((res) => {
-        console.log(res);
-
-        return res.json();
-      }),
+      }).then((res) => res.json()),
   });
 
-  if (isLoading) return <span>Loading...</span>;
-
-  return <span className={styles.toto}>Masteï version {data?.version}</span>;
+  return (
+    <span>
+      <span className={styles.appName}>Masteï</span>{' '}
+      {data?.version && <span className={styles.version}>version {data.version}</span>}
+    </span>
+  );
 }
 
 export { AppName };

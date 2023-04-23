@@ -1,7 +1,6 @@
-export type appInformations = {
-  name: string;
+export interface AppInformations {
   version: string;
-};
+}
 
 export type fragment = {
   id: string;
@@ -13,8 +12,9 @@ export type fragment = {
   jsImport?: string;
 };
 
-export type library = {
+export interface library {
   id: string;
   title: string;
   directory: string;
-};
+  lastEditDate: number;
+}

@@ -75,6 +75,7 @@ const config = {
   devServer: {
     proxy: {
       '/appInformations/**': 'http://localhost:8000',
+      '/libraries/**': 'http://localhost:8000',
     },
     port: 3000,
     open: ['./dev.html'],
