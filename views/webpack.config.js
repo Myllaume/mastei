@@ -78,7 +78,7 @@ const config = {
   stats: 'errors-only',
   devServer: {
     proxy: {
-      '/api/**': 'http://localhost:8000',
+      '/appInformations/**': 'http://localhost:8000',
     },
     port: 3000,
     open: ['./dev.html'],

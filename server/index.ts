@@ -1,16 +1,19 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { appInformations } from '../types';
 import { AppConfig, makeConfigDir, AppConfigParams } from './appConfig';
+import { appInformations } from './routes';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app: Express = express();
+
 const port = 8000;
 
 app.use(express.static(path.join(__dirname, '../views/')));
+app.use(bodyParser.json());
 
 async function bootApp(): Promise<AppConfigParams> {
   const canLoadConfig = await AppConfig.isLoadable();
@@ -23,24 +26,9 @@ async function bootApp(): Promise<AppConfigParams> {
   return config;
 }
 
+app.use('/appInformations', appInformations);
+
 bootApp().then((appConfig) => {
-  app.get('/api/libraries', (req: Request, res: Response) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(appConfig.libraries));
-  });
-
-  app.get('/api/appconfig', (req: Request, res: Response) => {
-    const result = {
-      app: {
-        name: 'Masteï',
-        version: '0.1.0',
-      } as appInformations,
-    };
-
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(result));
-  });
-
   app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
   });
