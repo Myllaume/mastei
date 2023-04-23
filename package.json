@@ -9,7 +9,7 @@
   "scripts": {
     "test": "./node_modules/.bin/jest",
     "start": "node ./dist/index.js",
-    "build:server": "./node_modules/.bin/webpack-dev-server -c ./server/webpack.config.js",
+    "build:server": "./node_modules/.bin/webpack -c ./server/webpack.config.js -w",
     "build:views": "./node_modules/.bin/webpack-dev-server -c ./views/webpack.config.js",
     "format": "./node_modules/.bin/prettier --write --list-different ."
   },
