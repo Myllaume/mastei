@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import styles from './modal.module.css';
 import { Overlay } from './overlay';
