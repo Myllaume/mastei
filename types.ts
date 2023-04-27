@@ -18,3 +18,8 @@ export interface library {
   directory: string;
   lastEditDate: number;
 }
+
+export type formField = {
+  value: string;
+  hasError: boolean;
+};
