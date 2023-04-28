@@ -3,6 +3,7 @@ import { AppConfig } from '../appConfig';
 import { InvalidRequestKeyError } from '../../errors';
 import { Library } from '../library';
 import slugify from 'slugify';
+import { CustomError } from '../../types';
 
 const libraries = express.Router();
 
@@ -31,9 +32,10 @@ libraries.post('/add', (req: Request, res: Response) => {
     .then((library) => {
       res.json(library);
     })
-    .catch((err) => {
+    .catch((err: CustomError) => {
       res.status(400).json({
-        message: 'This is an error!',
+        code: err.code,
+        message: err.message,
       });
     });
 });

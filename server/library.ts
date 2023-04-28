@@ -6,6 +6,7 @@ import {
   MakeDataDirError,
   MakeLibrariesDirError,
   MakeLibraryDirError,
+  LibraryDirAlreadyExistError,
 } from '../errors';
 import { uuidv4 } from '../misc';
 import envPaths from 'env-paths';
@@ -48,6 +49,10 @@ export class Library implements library {
       directory: path.join(Library.savePath, title),
       lastEditDate: Number(Date.now()),
     });
+
+    if (existsSync(Library.savePath)) {
+      return Promise.reject(new LibraryDirAlreadyExistError(library.directory));
+    }
 
     return new Promise((resolve, reject) => {
       mkdir(library.directory, (err) => {

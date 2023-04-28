@@ -23,3 +23,8 @@ export type formField = {
   value: string;
   hasError: boolean;
 };
+
+export interface CustomError {
+  code: string;
+  message: string;
+}
