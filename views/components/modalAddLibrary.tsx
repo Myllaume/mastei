@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Modal } from './modal';
-import { formField } from '../../types';
+import { CustomError, formField, library } from '../../types';
 import { useMutation } from '@tanstack/react-query';
 
 interface ModalAddLibraryProps {
@@ -20,24 +20,29 @@ export function ModalAddLibrary({ onClose }: ModalAddLibraryProps) {
   });
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  const { mutate: mutateAddLibrary } = useMutation({
+  const {
+    mutate: mutateAddLibrary,
+    error,
+    isLoading,
+  } = useMutation<library, CustomError, { title: string }>({
     mutationKey: ['libraries-add'],
-    mutationFn: (variables: { title: string }) =>
+    mutationFn: (variables) =>
       fetch('/libraries/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(variables),
-      }).then((res) => res.json()),
-    onMutate: () => {
-      setDisabled(true);
-    },
-    onError: () => {
-      console.log('error');
-    },
+      }).then(async (res) => {
+        const result = await res.json();
+        if (res.ok) {
+          return result;
+        } else {
+          throw result;
+        }
+      }),
     onSuccess: () => {
-      setDisabled(false);
+      onClose();
     },
   });
 
@@ -72,7 +77,7 @@ export function ModalAddLibrary({ onClose }: ModalAddLibraryProps) {
       header={<h3>Ajouter une bibliothèque</h3>}
       footer={
         <>
-          <button disabled={disabled} onClick={onSubmit}>
+          <button disabled={isLoading} onClick={onSubmit}>
             Ajouter
           </button>
           <button>Annuler</button>
@@ -80,11 +85,13 @@ export function ModalAddLibrary({ onClose }: ModalAddLibraryProps) {
       }
       onClose={onClose}
     >
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <label>
           Titre
           <input name="title" value={formValue.title.value} onChange={onChange} />
         </label>
+
+        {error && <output className={'error'}>{error.message}</output>}
       </form>
     </Modal>
   );

@@ -1,4 +1,6 @@
-export class ReadFragmentFileError extends Error {
+import { CustomError } from './types';
+
+export class ReadFragmentFileError extends Error implements CustomError {
   code = 'read-fragment-file';
   filePath: string;
   cause?: unknown;
@@ -9,7 +11,7 @@ export class ReadFragmentFileError extends Error {
   }
 }
 
-export class FragmentHasNoIdError extends Error {
+export class FragmentHasNoIdError extends Error implements CustomError {
   code = 'fragment-no-id';
 
   constructor() {
@@ -17,7 +19,7 @@ export class FragmentHasNoIdError extends Error {
   }
 }
 
-export class FragmentHasNoTitleError extends Error {
+export class FragmentHasNoTitleError extends Error implements CustomError {
   code = 'fragment-no-title';
 
   constructor() {
@@ -25,7 +27,7 @@ export class FragmentHasNoTitleError extends Error {
   }
 }
 
-export class WriteConfigFileError extends Error {
+export class WriteConfigFileError extends Error implements CustomError {
   code = 'write-config-file';
   filePath: string;
   cause?: unknown;
@@ -36,7 +38,7 @@ export class WriteConfigFileError extends Error {
   }
 }
 
-export class ReadConfigFileError extends Error {
+export class ReadConfigFileError extends Error implements CustomError {
   code = 'read-config-file';
   filePath: string;
   cause?: unknown;
@@ -47,7 +49,7 @@ export class ReadConfigFileError extends Error {
   }
 }
 
-export class MakeConfigDirError extends Error {
+export class MakeConfigDirError extends Error implements CustomError {
   code = 'make-config-directory';
   dirPath: string;
   cause?: unknown;
@@ -58,7 +60,7 @@ export class MakeConfigDirError extends Error {
   }
 }
 
-export class ConfigFileNotExistError extends Error {
+export class ConfigFileNotExistError extends Error implements CustomError {
   code = 'config-file-not-exist';
 
   constructor() {
@@ -66,7 +68,7 @@ export class ConfigFileNotExistError extends Error {
   }
 }
 
-export class ConfigFileContainsInvalidValueError extends Error {
+export class ConfigFileContainsInvalidValueError extends Error implements CustomError {
   code = 'config-file-contains-invalid-value';
 
   constructor(optionKey: string) {
@@ -74,7 +76,7 @@ export class ConfigFileContainsInvalidValueError extends Error {
   }
 }
 
-export class LibraryDirectoryNotExistError extends Error {
+export class LibraryDirectoryNotExistError extends Error implements CustomError {
   code = 'library-directory-not-exist';
   dirPath: string;
 
@@ -84,7 +86,7 @@ export class LibraryDirectoryNotExistError extends Error {
   }
 }
 
-export class MakeLibraryDirError extends Error {
+export class MakeLibraryDirError extends Error implements CustomError {
   code = 'make-library-directory';
   dirPath: string;
   cause?: unknown;
@@ -95,7 +97,7 @@ export class MakeLibraryDirError extends Error {
   }
 }
 
-export class InvalidRequestKeyError extends Error {
+export class InvalidRequestKeyError extends Error implements CustomError {
   code = 'invalid-request-key';
   requestAction: string;
   requestObject: string;
@@ -113,7 +115,7 @@ export class InvalidRequestKeyError extends Error {
   }
 }
 
-export class MakeDataDirError extends Error {
+export class MakeDataDirError extends Error implements CustomError {
   code = 'make-data-directory';
   dirPath: string;
   cause?: unknown;
@@ -124,13 +126,23 @@ export class MakeDataDirError extends Error {
   }
 }
 
-export class MakeLibrariesDirError extends Error {
+export class MakeLibrariesDirError extends Error implements CustomError {
   code = 'make-libraries-directory';
   dirPath: string;
   cause?: unknown;
 
   constructor(dirPath: string, cause: unknown) {
     super('Can not make libraries directory', { cause });
+    this.dirPath = dirPath;
+  }
+}
+
+export class LibraryDirAlreadyExistError extends Error implements CustomError {
+  code = 'librart-directory-already-exist';
+  dirPath: string;
+
+  constructor(dirPath: string) {
+    super('This library name is already used');
     this.dirPath = dirPath;
   }
 }
