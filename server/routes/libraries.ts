@@ -29,8 +29,8 @@ libraries.post('/add', (req: Request, res: Response) => {
   }
 
   Library.add(title)
-    .then((library) => {
-      res.json(library);
+    .then((libraries) => {
+      res.json(libraries);
     })
     .catch((err: CustomError) => {
       res.status(400).json({

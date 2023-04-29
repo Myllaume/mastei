@@ -10,6 +10,7 @@ import {
 } from '../errors';
 import { uuidv4 } from '../misc';
 import envPaths from 'env-paths';
+import { AppConfig } from './appConfig';
 
 const { data: dataDirPath } = envPaths('mastei', { suffix: '' });
 
@@ -42,24 +43,31 @@ export class Library implements library {
    * @todo Save library to app config
    */
 
-  public static async add(title: string): Promise<Library> {
+  public static async add(title: string): Promise<library[]> {
+    const libraryPath = path.join(Library.savePath, title);
+
     const library = new Library({
       id: uuidv4(),
       title,
-      directory: path.join(Library.savePath, title),
+      directory: libraryPath,
       lastEditDate: Number(Date.now()),
     });
 
-    if (existsSync(Library.savePath)) {
-      return Promise.reject(new LibraryDirAlreadyExistError(library.directory));
+    if (existsSync(libraryPath)) {
+      return Promise.reject(new LibraryDirAlreadyExistError(libraryPath));
     }
 
     return new Promise((resolve, reject) => {
-      mkdir(library.directory, (err) => {
+      mkdir(library.directory, async (err) => {
         if (err) {
           reject(new MakeLibraryDirError(library.directory, err));
         }
-        resolve(library);
+
+        const config = await AppConfig.load();
+        config.libraries.push(library);
+        await config.save();
+
+        resolve(config.libraries);
       });
     });
   }
