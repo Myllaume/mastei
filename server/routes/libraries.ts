@@ -3,13 +3,23 @@ import { AppConfig } from '../appConfig';
 import { InvalidRequestKeyError } from '../../errors';
 import { Library } from '../library';
 import slugify from 'slugify';
-import { CustomError } from '../../types';
+import { CustomError, library } from '../../types';
 
 const libraries = express.Router();
 
 libraries.get('/', (req: Request, res: Response) => {
-  AppConfig.load().then((config) => {
-    res.json(config.libraries);
+  AppConfig.load().then(async (config) => {
+    const payload: library[] = [];
+
+    for await (const lib of config.libraries) {
+      const canOpen = (await lib.checkIsLoadable()) === true;
+      payload.push({
+        ...lib,
+        canOpen,
+      });
+    }
+
+    res.json(payload);
   });
 });
 

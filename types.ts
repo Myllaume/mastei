@@ -17,6 +17,7 @@ export interface library {
   title: string;
   directory: string;
   lastEditDate: number;
+  canOpen?: boolean;
 }
 
 export type formField = {

@@ -9,6 +9,7 @@ import {
   ConfigFileNotExistError,
   ConfigFileContainsInvalidValueError,
 } from '../errors';
+import { Library } from './library';
 
 const { config: configDirPath } = envPaths('mastei', { suffix: '' });
 
@@ -17,14 +18,14 @@ export interface AppConfigParams {
 }
 
 export class AppConfig {
-  libraries: library[];
+  libraries: Library[];
 
   public static base = Object.freeze({
     libraries: [],
   } as AppConfigParams);
 
   constructor({ libraries }: AppConfigParams) {
-    this.libraries = libraries;
+    this.libraries = libraries.map((lib) => new Library(lib));
   }
 
   public static savePath = path.join(configDirPath, 'config.json');

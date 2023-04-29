@@ -1,16 +1,18 @@
 import styles from './card.module.css';
 import { DateDisplay } from './datedisplay';
 import { MoreOptions } from './moreoptions';
+import cn from 'classnames';
 
 interface CardProps {
   title: string;
   nbFragments: number;
   timestamp: number;
+  disabled: boolean;
 }
 
-function Card({ title, nbFragments, timestamp }: CardProps) {
+function Card({ title, nbFragments, timestamp, disabled }: CardProps) {
   return (
-    <article className={styles.box}>
+    <article className={cn(styles.box, { [styles.disabled]: disabled })}>
       <h3 className={styles.title}>{title}</h3>
 
       <div className={styles.table}>

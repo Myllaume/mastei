@@ -19,6 +19,7 @@ export class Library implements library {
   title: string;
   directory: string;
   lastEditDate: number;
+  canOpen?: boolean;
 
   public static savePath = path.join(dataDirPath, 'libraries');
 
@@ -29,7 +30,7 @@ export class Library implements library {
     this.lastEditDate = lastEditDate;
   }
 
-  public async isLoadable(): Promise<LibraryDirectoryNotExistError | true> {
+  public async checkIsLoadable(): Promise<LibraryDirectoryNotExistError | true> {
     if (existsSync(this.directory) === false) {
       return Promise.resolve(new LibraryDirectoryNotExistError(this.directory));
     }
@@ -51,6 +52,7 @@ export class Library implements library {
       title,
       directory: libraryPath,
       lastEditDate: Number(Date.now()),
+      canOpen: true,
     });
 
     if (existsSync(libraryPath)) {
