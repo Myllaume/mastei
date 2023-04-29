@@ -3,14 +3,15 @@ import { DateDisplay } from './datedisplay';
 import { MoreOptions } from './moreoptions';
 
 interface CardProps {
+  title: string;
   nbFragments: number;
   timestamp: number;
 }
 
-function Card({ nbFragments, timestamp }: CardProps) {
+function Card({ title, nbFragments, timestamp }: CardProps) {
   return (
     <article className={styles.box}>
-      <h3 className={styles.title}>Title</h3>
+      <h3 className={styles.title}>{title}</h3>
 
       <div className={styles.table}>
         <span className={styles.key}>Fragments</span>
