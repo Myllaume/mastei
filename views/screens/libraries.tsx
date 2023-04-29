@@ -32,8 +32,14 @@ export function Libraries() {
       <ToolBar />
       <h1>Bibliothèques</h1>
 
-      {librariesList.map(({ lastEditDate, title, id }) => (
-        <Card key={id} title={title} nbFragments={3} timestamp={lastEditDate} />
+      {librariesList.map(({ lastEditDate, title, id, canOpen }) => (
+        <Card
+          key={id}
+          disabled={canOpen === false}
+          title={title}
+          nbFragments={3}
+          timestamp={lastEditDate}
+        />
       ))}
 
       {showModalAddLibrary && <ModalAddLibrary onClose={() => setShowModalAddLibrary(false)} />}
