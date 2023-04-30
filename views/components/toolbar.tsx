@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styles from './toolbar.module.css';
 import { AppName } from './appname';
 import { menuItem } from '../../types';
@@ -8,6 +9,18 @@ interface ToolBarProps {
 }
 
 export function ToolBar({ template }: ToolBarProps) {
+  function handleClick(
+    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    onClick: (() => void) | undefined,
+    disable: boolean | undefined
+  ) {
+    e.stopPropagation();
+    if (disable || onClick === undefined) {
+      return;
+    }
+    onClick();
+  }
+
   return (
     <section className={styles.box}>
       <AppName />
@@ -25,15 +38,9 @@ export function ToolBar({ template }: ToolBarProps) {
               <li
                 key={firstId}
                 className={cn(styles.menuItem, styles.firstMenuItem, {
-                  [styles.disabled]: firstDisable === true,
+                  [styles.disabled]: firstDisable,
                 })}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (firstDisable || firstOnClick === undefined) {
-                    return;
-                  }
-                  firstOnClick();
-                }}
+                onClick={(e) => handleClick(e, firstOnClick, firstDisable)}
               >
                 {firstLabel}
 
@@ -50,15 +57,9 @@ export function ToolBar({ template }: ToolBarProps) {
                         <li
                           key={secondId}
                           className={cn(styles.menuItem, styles.secondMenuItem, {
-                            [styles.disabled]: secondDisable === true,
+                            [styles.disabled]: secondDisable,
                           })}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (secondDisable || secondOnClick === undefined) {
-                              return;
-                            }
-                            secondOnClick();
-                          }}
+                          onClick={(e) => handleClick(e, secondOnClick, secondDisable)}
                         >
                           {secondLabel}
 
@@ -74,15 +75,9 @@ export function ToolBar({ template }: ToolBarProps) {
                                   <li
                                     key={thirdId}
                                     className={cn(styles.menuItem, styles.thirdMenuItem, {
-                                      [styles.disabled]: thirdDisable === true,
+                                      [styles.disabled]: thirdDisable,
                                     })}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      if (thirdDisable || thirdOnClick === undefined) {
-                                        return;
-                                      }
-                                      thirdOnClick();
-                                    }}
+                                    onClick={(e) => handleClick(e, thirdOnClick, thirdDisable)}
                                   >
                                     {thirdLabel}
                                   </li>
