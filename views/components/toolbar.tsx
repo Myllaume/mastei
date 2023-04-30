@@ -26,7 +26,7 @@ export function ToolBar({ template }: ToolBarProps) {
       <AppName />
 
       <nav>
-        <ul className={styles.firstMenu}>
+        <ul className={cn(styles.menu, styles.firstMenu)}>
           {template.map(
             ({
               id: firstId,
@@ -45,7 +45,7 @@ export function ToolBar({ template }: ToolBarProps) {
                 {firstLabel}
 
                 {firstSub && (
-                  <ul className={styles.secondMenu}>
+                  <ul className={cn(styles.menu, styles.secondMenu)}>
                     {firstSub.map(
                       ({
                         id: secondId,
@@ -64,7 +64,7 @@ export function ToolBar({ template }: ToolBarProps) {
                           {secondLabel}
 
                           {secondSub && (
-                            <ul className={styles.thirdMenu}>
+                            <ul className={cn(styles.menu, styles.thirdMenu)}>
                               {secondSub.map(
                                 ({
                                   id: thirdId,

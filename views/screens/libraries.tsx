@@ -29,67 +29,16 @@ export function Libraries() {
 
   const menuTemplate: menuItem[] = [
     {
-      id: 'new-librairy',
+      id: 'create',
       label: 'Créer',
       disable: false,
-      onClick: () => {
-        console.log('Créer');
-      },
 
       sub: [
         {
-          id: 'toto',
-          label: 'toto',
+          id: 'create-library',
+          label: 'Nouvelle bibliothèque',
           disable: false,
-          onClick: () => {
-            console.log('toto');
-          },
-
-          sub: [
-            {
-              id: 'tata',
-              label: 'tata',
-              disable: false,
-              onClick: () => {
-                console.log('tata');
-              },
-            },
-          ],
-        },
-        {
-          id: 'tjtj',
-          label: 'tjtj',
-          disable: false,
-          onClick: () => {
-            console.log('tjtj');
-          },
-        },
-        {
-          id: 'tutu',
-          label: 'tutu',
-          disable: true,
-          onClick: () => {
-            console.log('tutu');
-          },
-
-          sub: [
-            {
-              id: 'tyty',
-              label: 'tyty',
-              disable: true,
-              onClick: () => {
-                console.log('tyty');
-              },
-            },
-            {
-              id: 'tete',
-              label: 'tete',
-              disable: false,
-              onClick: () => {
-                console.log('tete');
-              },
-            },
-          ],
+          onClick: () => setShowModalAddLibrary(true),
         },
       ],
     },
@@ -119,8 +68,6 @@ export function Libraries() {
       ))}
 
       {showModalAddLibrary && <ModalAddLibrary onClose={() => setShowModalAddLibrary(false)} />}
-
-      <button onClick={() => setShowModalAddLibrary(true)}>Ajouter une bibliothèque</button>
     </>
   );
 }
