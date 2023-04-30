@@ -29,3 +29,12 @@ export interface CustomError {
   code: string;
   message: string;
 }
+
+export type menuItem = {
+  id: string;
+  label: string;
+  disable: boolean;
+  accelerator?: string;
+  sub?: menuItem[];
+  onClick?: () => void;
+};

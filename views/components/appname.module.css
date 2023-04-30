@@ -1,9 +1,7 @@
 .appName {
-  display: block;
-  font-size: 1.4em;
+  font-size: 1em;
 }
 
 .version {
-  display: block;
   font-size: 0.6em;
 }

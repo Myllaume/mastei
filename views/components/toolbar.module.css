@@ -1,3 +1,94 @@
 .box {
-  padding: 0.5em 1em;
+  position: relative;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  height: 40px;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.firstMenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.menuItem {
+  color: black;
+  position: relative;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0.8em 1.4em;
+}
+
+.menuItem.disabled {
+  cursor: not-allowed;
+  color: hsl(0, 0%, 50%);
+}
+
+.firstMenuItem:hover .secondMenu {
+  display: block;
+}
+
+.secondMenu {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: sweepDown 0.1s ease-in-out;
+}
+
+.secondMenuItem {
+  background-color: hsl(0, 0%, 95%);
+}
+
+.secondMenuItem:hover .thirdMenu {
+  display: block;
+}
+
+.thirdMenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  background-color: hsl(0, 0%, 90%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: sweepRight 0.1s ease-in-out;
+}
+
+.thirdMenuItem:hover .thirdMenu {
+  display: block;
+}
+
+@keyframes sweepDown {
+  0% {
+    transform: scaleY(0.8);
+    transform-origin: top;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+@keyframes sweepRight {
+  0% {
+    transform: scaleX(0.8);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
