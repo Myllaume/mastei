@@ -8,11 +8,12 @@ interface CardProps {
   nbFragments: number;
   timestamp: number;
   disabled: boolean;
+  className?: string;
 }
 
-function Card({ title, nbFragments, timestamp, disabled }: CardProps) {
+function Card({ title, nbFragments, timestamp, disabled, className }: CardProps) {
   return (
-    <article className={cn(styles.box, { [styles.disabled]: disabled })}>
+    <article className={cn(styles.box, { [styles.disabled]: disabled }, className)}>
       <h3 className={styles.title}>{title}</h3>
 
       <div className={styles.table}>

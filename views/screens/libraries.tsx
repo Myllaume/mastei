@@ -4,9 +4,12 @@ import { Card } from '../components/card';
 import { ToolBar } from '../components/toolbar';
 import { ModalAddLibrary } from '../components/modalAddLibrary';
 import { useState } from 'react';
+import styles from './libraries.module.css';
+import { useToggle } from 'react-use';
 
 export function Libraries() {
   const [showModalAddLibrary, setShowModalAddLibrary] = useState<boolean>(false);
+  const [showHelpPanel, toggleHelpPanel] = useToggle(false);
 
   const {
     data: librariesList,
@@ -46,28 +49,44 @@ export function Libraries() {
       id: 'help',
       label: 'Aide',
       disable: false,
-      onClick: () => {
-        console.log('Aide');
-      },
+      onClick: () => toggleHelpPanel(),
     },
   ];
 
   return (
-    <>
+    <div className="screen">
       <ToolBar template={menuTemplate} />
-      <h1>Bibliothèques</h1>
 
-      {librariesList.map(({ lastEditDate, title, id, canOpen }) => (
-        <Card
-          key={id}
-          disabled={canOpen === false}
-          title={title}
-          nbFragments={3}
-          timestamp={lastEditDate}
-        />
-      ))}
+      <div className="body">
+        <section className="main-content">
+          <h1>Bibliothèques</h1>
 
-      {showModalAddLibrary && <ModalAddLibrary onClose={() => setShowModalAddLibrary(false)} />}
-    </>
+          <section className={styles.grid}>
+            {librariesList.map(({ lastEditDate, title, id, canOpen }) => (
+              <Card
+                key={id}
+                className={styles.card}
+                disabled={canOpen === false}
+                title={title}
+                nbFragments={3}
+                timestamp={lastEditDate}
+              />
+            ))}
+          </section>
+
+          {showModalAddLibrary && <ModalAddLibrary onClose={() => setShowModalAddLibrary(false)} />}
+        </section>
+
+        <aside className="secondary-content">
+          {showHelpPanel && (
+            <div className="panel">
+              <h2>Aide</h2>
+
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, cupiditate?</p>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
   );
 }

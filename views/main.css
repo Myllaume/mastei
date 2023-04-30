@@ -6,6 +6,35 @@ body {
   padding: 0;
 }
 
+.body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-content {
+  padding: 0 2em;
+}
+
+.secondary-content {
+  width: 400px;
+}
+
+.panel {
+  background-color: white;
+  border: 1px solid gray;
+  padding: 1em;
+  margin: 1em;
+}
+
+h1,
+h2 {
+  margin: 0 0 1em 0;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
 input {
   width: calc(100% - 30px);
   padding: 0.5em 0.8em;
