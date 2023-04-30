@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { library } from '../../types';
+import { library, menuItem } from '../../types';
 import { Card } from '../components/card';
 import { ToolBar } from '../components/toolbar';
 import { ModalAddLibrary } from '../components/modalAddLibrary';
@@ -27,9 +27,85 @@ export function Libraries() {
     return null;
   }
 
+  const menuTemplate: menuItem[] = [
+    {
+      id: 'new-librairy',
+      label: 'Créer',
+      disable: false,
+      onClick: () => {
+        console.log('Créer');
+      },
+
+      sub: [
+        {
+          id: 'toto',
+          label: 'toto',
+          disable: false,
+          onClick: () => {
+            console.log('toto');
+          },
+
+          sub: [
+            {
+              id: 'tata',
+              label: 'tata',
+              disable: false,
+              onClick: () => {
+                console.log('tata');
+              },
+            },
+          ],
+        },
+        {
+          id: 'tjtj',
+          label: 'tjtj',
+          disable: false,
+          onClick: () => {
+            console.log('tjtj');
+          },
+        },
+        {
+          id: 'tutu',
+          label: 'tutu',
+          disable: true,
+          onClick: () => {
+            console.log('tutu');
+          },
+
+          sub: [
+            {
+              id: 'tyty',
+              label: 'tyty',
+              disable: true,
+              onClick: () => {
+                console.log('tyty');
+              },
+            },
+            {
+              id: 'tete',
+              label: 'tete',
+              disable: false,
+              onClick: () => {
+                console.log('tete');
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'help',
+      label: 'Aide',
+      disable: false,
+      onClick: () => {
+        console.log('Aide');
+      },
+    },
+  ];
+
   return (
     <>
-      <ToolBar />
+      <ToolBar template={menuTemplate} />
       <h1>Bibliothèques</h1>
 
       {librariesList.map(({ lastEditDate, title, id, canOpen }) => (
